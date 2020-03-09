@@ -10,7 +10,7 @@ class SignUp extends Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
-    handleSubmit =  e => {
+    handleSubmit = e => {
         e.preventDefault()
         console.log(this.state)
         actions.signUp(this.state).then(user=> {

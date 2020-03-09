@@ -11,42 +11,42 @@ const session = require("express-session");
 const passport = require("./config/passport");
 
 // mongodb+srv://codeSloth:<temppass>@cluster0-9hcsq.gcp.mongodb.net/test?retryWrites=true&w=majority
-const app = express();
-
-app.use(
-  cors({
-    credentials: true,
-    origin: [
-      "http://localhost:3000",
-      "https://amazing-agnesi-f519db.netlify.com"
-    ] //Swap this with the client url
-  })
-);
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/ironplate";
 console.log("Connecting DB to ", MONGODB_URI);
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(x =>
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(x =>
+  console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   )
   .catch(err => console.error("Error connecting to mongo", err));
 
-const app_name = require("./package.json").name;
+  const app_name = require("./package.json").name;
 const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
 
 
+const app = express();
 
-// app.use(cors({
-//   origin: function(origin, callback){
-//     return callback(null, true);
-//   },
-//   optionsSuccessStatus: 200,
-//   credentials: true
-// }));
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: [
+//       "http://localhost:3000",
+//       "https://amazing-agnesi-f519db.netlify.com"
+//     ] //Swap this with the client url
+//   })
+// );
+
+app.use(cors({
+    origin: function(origin, callback){
+    return callback(null, true);
+  },
+  optionsSuccessStatus: 200,
+  credentials: true
+}));
 
 app.use(
   session({
