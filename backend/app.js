@@ -46,7 +46,8 @@ app.use(cors({
   },
   optionsSuccessStatus: 200,
   credentials: true
-}));
+})
+);
 
 app.use(
   session({
